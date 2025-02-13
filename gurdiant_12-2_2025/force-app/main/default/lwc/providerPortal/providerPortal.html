@@ -1,0 +1,602 @@
+<template>
+    <div style="width:100%;justify-content:center;align-items:center;display:flex">
+        <lightning-card   style="width: 850px;margin-top: 5%;margin-bottom: 5%;" class="card" >
+              <div  class = "header-card">
+            <h1>Provider Portal</h1>
+            <h6>Provider Information</h6>
+              </div>
+              <div style=" display: flex; justify-content: center; margin: 16px;  margin-top: 0px;">
+                <!-- <div style="text-align: right; font-weight: bold; margin-right: 6px; margin-top: 8px;">Select an
+                    event:</div> -->
+        
+          
+            </div>
+        
+
+        
+          <div class="slds-section">
+        
+            <h3 class="slds-section__title custom_section" >
+                <button aria-controls="expando-unique-id" aria-expanded={isExpanded}
+                    class="slds-button slds-section__title-action slds-grid  slds-justify_between"
+                    onclick={toggleSection} type="button">
+    
+                    <lightning-icon if:false={isExpanded} icon-name="utility:chevronright" size="x-small"
+                        class="slds-m-right_small"></lightning-icon>
+                    <lightning-icon if:true={isExpanded} icon-name="utility:chevrondown" size="x-small"
+                        class="slds-m-right_small"></lightning-icon>
+                    <span class="slds-truncate" title="Section Title">Required Information</span>
+        
+                </button>
+            </h3>
+
+            
+            <div if:true={isExpanded}>
+                <div class="slds-card__body custum-class">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                      <!-- Member Name -->
+                      <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-form-element slds-form-element_horizontal">
+                          
+
+    <!-- Group Location label and value -->
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="font-500">Provider Name:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={groupLocation} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{name}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+               
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Provider Type:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={providerType} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{providerType }</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+              
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Affiliated Group:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={affiliatedGroup} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{affiliatedGroup}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+                
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Group Location:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={groupLocation} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{groupLocation}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+               
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Care Category :</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={careCat} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{careCat}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+          
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Appointment Type:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={appointmentType} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{appointmentType}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+             
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          <div class="slds-form-element__control">
+                  
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Member Gender -->
+                      <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-form-element slds-form-element_horizontal">
+                  
+    <!-- Group Location label and value -->
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Time Zone:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={timeZone} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{timeZone}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+             
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Gender:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value='Female' 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>Female</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+         
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Language :</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value='English'
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>English</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+               
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Email Address:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={email} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{email}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+           
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Phone Number:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value= '0178789767896'
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>0178789767896</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+            
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+
+
+
+    <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-col  slds-size_1-of-3">
+            <label class="slds-text-title_bold">Group Location:</label>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Display the value of groupLocation -->
+            <template if:true={isEditing}>
+                <lightning-input 
+                    type="text" 
+                    label="Group Location" 
+                    value={groupLocation} 
+                    onchange={handleValueChange} 
+                    class="slds-m-left_small">
+                </lightning-input>
+            </template>
+            <template if:false={isEditing}>
+                <span>{groupLocation}</span>
+            </template>
+        </div>
+        <div class="slds-col  slds-size_1-of-3">
+            <!-- Pencil icon for editing -->
+            <lightning-button-icon 
+                icon-name="utility:edit" 
+                alternative-text="Edit" 
+                size="small" 
+            
+                class="slds-m-left_small custum-icon">
+       
+            </lightning-button-icon>
+        </div>
+    </div>
+
+
+
+                            
+                          <div class="slds-form-element__control">
+                      
+                          </div>
+                        </div>
+                      </div>
+                    
+
+                 
+
+
+                    </div>
+                    </div>
+                    <!-- <div class="slds-col  slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                        <lightning-input label="Patient Name" value={patientName} onchange={handleInputChange} data-id="patientName"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                        <lightning-combobox
+                            label="Gender"
+                            value={gender}
+                            options={genderOptions}
+                            onchange={handleInputChange}
+                            data-id="gender">
+                        </lightning-combobox>
+                    </div> -->
+        
+        
+        
+                <!-- Conditional rendering for Unavailable fields -->
+           
+        
+            </div>
+
+
+        </div>
+
+
+
+          
+        <div class="slds-section">
+        
+            <h3 class="slds-section__title custom_section" >
+                <button aria-controls="expando-unique-id" aria-expanded={isExpanded2}
+                    class="slds-button slds-section__title-action slds-grid  slds-justify_between"
+                    onclick={toggleSection2} type="button">
+    
+                    <lightning-icon if:false={isExpanded2} icon-name="utility:chevronright" size="x-small"
+                        class="slds-m-right_small"></lightning-icon>
+                    <lightning-icon if:true={isExpanded2} icon-name="utility:chevrondown" size="x-small"
+                        class="slds-m-right_small"></lightning-icon>
+                    <span class="slds-truncate" title="Section Title">Appintments</span>
+        
+                </button>
+            </h3>
+            <div if:true={isExpanded2} style = '    border: 1px solid #8080805c;
+    margin: 24px;
+    border-radius: 4px;'>
+                <div class="slds-grid slds-wrap">
+                    <!-- Appointments List -->
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-card style="width: 100%">
+                            <template if:true={appointments}>
+                                <template for:each={appointments} for:item="appointment">
+                                    <div key={appointment.id} class="appointment-card">
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-p-around_x-small">
+                                            <div class="slds-col slds-size_2-of-3">
+                                                <!-- Appointment Details -->
+                                                <p class="slds-text-title_bold">
+                                                    <a href="#" onclick={handleNavigate} style="font-weight: 500;">{appointment.id}</a>
+                                                </p>
+                                                <p style="font-weight: 500;">Group Location: {appointment.location}</p>
+                                                <p style="font-weight: 500;">Date and Time: {appointment.dateTime}</p>
+                                                <p style="font-weight: 500;">Status: {appointment.status}</p>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-3 slds-text-align_right">
+                                                <!-- Dropdown Action -->
+                                                <lightning-button-icon
+                                                    icon-name="utility:down"
+                                                    alternative-text="Actions"
+                                                    data-id={appointment.id}
+                                                    onclick={handleToggleDropdown}
+                                                ></lightning-button-icon>
+                                                <!-- Dropdown Menu -->
+                                                <template if:true={appointment.showDropdown}>
+                                                    <div class="dropdown-options">
+                                                        <ul class="slds-listbox slds-listbox_vertical slds-dropdown position">
+                                                            <li class="slds-listbox__item">
+                                                                <a href="javascript:void(0);" class="slds-text-link" onclick={handleEdit}>Edit</a>
+                                                            </li>
+                                                            <li class="slds-listbox__item">
+                                                                <a href="#" class="slds-text-link"   data-id={appointment.id}  onclick={handleDelete}>Delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <!-- View All -->
+                                <div class="view-all slds-text-align_center slds-m-top_medium">
+                                    <a href="#" onclick={handleViewAll}>View All</a>
+                                </div>
+                            </template>
+                            
+                            
+
+                        
+                            <template if:false={appointments}>
+                                <p class="slds-p-around_medium">No appointments available.</p>
+                            </template>
+                        </lightning-card>
+                    </div>
+                
+              
+                </div>
+
+                
+                    <!-- <div class="slds-col  slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                        <lightning-input label="Patient Name" value={patientName} onchange={handleInputChange} data-id="patientName"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                        <lightning-combobox
+                            label="Gender"
+                            value={gender}
+                            options={genderOptions}
+                            onchange={handleInputChange}
+                            data-id="gender">
+                        </lightning-combobox>
+                    </div> -->
+        
+        
+        
+                <!-- Conditional rendering for Unavailable fields -->
+           
+        
+            </div>
+        </div>
+
+        <div class = 'bottom-div'>
+            <div class="slds-grid slds-grid_align-end slds-m-top_small slds-p-bottom_medium">
+                         
+            <lightning-button variant="brand" label="Submit Appointment" onclick={handleSubmit}></lightning-button>
+            
+            </div>
+            </div>
+
+        </lightning-card>
+        </div>
+        
+</template>

@@ -1,0 +1,403 @@
+<template>
+    <div class="slds-form" role="list">
+
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Appointment ID</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{appointmentDetails.appointmentID}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Member Name</span>
+                    <div class="slds-form-element__control">
+                        <div if:true={patient}>
+                            <a href={patientName} target="_blank">
+                                {appointmentDetails.patientName}
+                            </a>
+                        </div>
+                        <div if:false={patient}>
+                            {appointmentDetails.patientName}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Member Address</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-form__row">
+            <!-- <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Affiliated Group</span>
+                    <div class="slds-form-element__control">
+
+                        <div class="slds-form-element__static" >
+                            <div if:false={provider}>
+                            
+                                    {appointmentDetails.providerName}
+                            
+
+                            </div>
+                            <div if:true={provider}>
+                                <a href={providerAddress} target="_blank">
+                                    {appointmentDetails.providerName}
+                                </a>
+
+                            </div>
+                            
+                           
+                        
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div> -->
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Care Category</span>
+                    <div class="slds-form-element__control">
+
+                        <div class="slds-form-element__static">
+                            <div if:true={care}>
+                                <a href={careCategory} target="_blank">
+                                    {appointmentDetails.careCategoryName}
+                                </a>
+                            </div>
+                            <div if:false={care}>
+                                {appointmentDetails.careCategoryName}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Appointment Type</span>
+                    <div class="slds-form-element__control">
+
+                        <div class="slds-form-element__static">
+                            <div if:true={Appointment}>
+                                <a href={AppointmentType} target="_blank">
+                                    {appointmentDetails.AppointmentTypeName}
+                                </a>
+                            </div>
+                            <div if:false={Appointment}>
+                                {appointmentDetails.AppointmentTypeName}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Provider Type</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div if:true={ProviderT}>
+                                <a href={ProviderType} target="_blank">
+                                    {appointmentDetails.ProviderTypeName}
+                                </a>
+                            </div>
+                            <div if:false={ProviderT}>
+                                {appointmentDetails.ProviderTypeName}
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Telehealth</span>
+                    <div class="slds-form-element__control">
+
+                        <div class="slds-form-element__static">
+                            <div>
+                                {appointmentDetails.telehealth}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Room Type </span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <!-- <div >
+                                <a href={recordType} target="_blank">
+                                    {recordTypeName}
+                                </a>
+                            </div>
+                            <div if:false={record}>
+                                {recordTypeName}
+                            </div> -->
+                            <div>
+                                {appointmentDetails.roomType}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Affiliated Group</span>
+                    <div class="slds-form-element__control">
+
+                        <div class="slds-form-element__static">
+                            <div if:false={provider}>
+                                {appointmentDetails.providerName}
+                            </div>
+                            <div if:true={provider}>
+                                <a href={providerAddress} target="_blank">
+                                    {appointmentDetails.providerName}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Group Location</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div if:true={groupLocation}>
+                                <a href={groupLocationID} target="_blank">
+                                    {appointmentDetails.locationName}
+                                </a>
+                            </div>
+                            <div if:false={groupLocation}>
+                                {appointmentDetails.locationName}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Location Address</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div>
+                                {appointmentDetails.locationAddress}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Location Room</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div>
+                                --
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Room Level</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div>
+                                {appointmentDetails.roomLevel}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Room Label</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div>
+                                {appointmentDetails.roomLabel}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Provider Type</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div if:true={ProviderT}>
+                                <a href={ProviderType} target="_blank">
+                                    {appointmentDetails.ProviderTypeName}
+                                </a>
+                            </div>
+                            <div if:false={ProviderT}>
+                                {appointmentDetails.ProviderTypeName}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Provider</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <div if:false={docnName}>
+                                {appointmentDetails.doctorName}
+                            </div>
+                            <div if:true={docnName}>
+                                <a href={docId} target="_blank">
+                                    {appointmentDetails.doctorName}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Scheduled Type</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            Date and Time
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Date</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {formattedDate}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Time</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {appointmentDetails.originalDate}
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Start Time</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {appointmentDetails.startTime}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">End Time</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {appointmentDetails.endTime}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Duration</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {formattedDuration}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Note</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {appointmentDetails.note}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                    <span class="slds-form-element__label">Time</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {appointmentDetails.originalDate}
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</template>

@@ -1,0 +1,4 @@
+<aura:component implements="lightning:actionOverride" access="global">
+    <!-- This is a valid comment -->
+    <c:newAppointment />
+</aura:component>

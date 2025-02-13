@@ -1,0 +1,578 @@
+<template>
+    <!-- <div class = "wrapper">
+    <div class="calender">
+        <div class="header">
+            <h1>Calender</h1>
+        </div>
+        <div class="body">
+            <div class="month-row">
+                <lightning-icon icon-name="utility:chevronleft" alternative-text="Close" size="x-small" onclick ={handlePrev} class = "icon-color"></lightning-icon>
+                <h1 style="margin-right: 8px;  margin-left: 8px; font-weight: 600; color: #020240;font-size: 13px;">{selectedYear} {selectedMonth} </h1>
+                <lightning-icon icon-name="utility:chevronright" alternative-text="Close" size="x-small" onclick ={handleNext} class = "icon-color"></lightning-icon>
+            </div>
+            <div class="weeks">
+                <ul> 
+                    <template for:each={weeks} for:item="item">
+                        <li key={item}>{item}</li>
+                    </template>
+                </ul>
+            </div>
+            <div class="days">
+                <ul>
+                    <template for:each={days} for:item="item">
+                        <li  if:false={item.isPast} key={item.day} data-day={item.day} style="cursor:pointer" onclick={handleSelectedDate} class ="enableDates">{item.day}</li>
+                        <li  if:true={item.isPast}  key={item.day} style="color: rgba(128, 128, 128, 0.671);cursor:not-allowed">{item.day} </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class = "selected-date-col">
+        <div class="selected-date">
+            <h1>{clickedFullDate}</h1>
+        </div>
+        <lightning-combobox 
+        label="Available Time" 
+        value={selectedTime} 
+        options={timeOptions} 
+        onchange={handleTimeChange}>
+    </lightning-combobox>
+
+    </div>
+
+
+</div> -->
+<div style="width:100%;justify-content:center;align-items:center;display:flex">
+<lightning-card   style="width: 850px;margin-top: 5%;margin-bottom: 5%;" class="card">
+      <div class = "header-card">
+    <h1>Appointment Request Form</h1>
+    <h6>Fill out the form below</h6>
+      </div>
+      <div style=" display: flex; justify-content: center; margin: 16px;  margin-top: 0px;">
+        <!-- <div style="text-align: right; font-weight: bold; margin-right: 6px; margin-top: 8px;">Select an
+            event:</div> -->
+
+        <lightning-radio-group name="recordType" options={radioRecordOptions}
+            value={selectedRecordTypeValue} onchange={handleRadioRecordChange} class="no-outline-radio">
+        </lightning-radio-group>
+    </div>
+
+<template if:true={newMember}>
+
+  <div class="slds-section">
+
+    <h3 class="slds-section__title custom_section" >
+        <button aria-controls="expando-unique-id" aria-expanded={isExpanded}
+            class="slds-button slds-section__title-action slds-grid  slds-justify_between"
+            onclick={toggleSection} type="button">
+
+
+
+            <lightning-icon if:false={isExpanded} icon-name="utility:chevronright" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <lightning-icon if:true={isExpanded} icon-name="utility:chevrondown" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <span class="slds-truncate" title="Section Title">Required Information</span>
+
+        </button>
+    </h3>
+    <div if:true={isExpanded}>
+        <div class="slds-card__body custum-class">
+            <div class="slds-grid slds-wrap slds-gutters">
+              <!-- Member Name -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="memberName"><span style='color:red;'>* </span>Member Name</label>
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="text"
+                      id="memberName"
+                      onchange={handleInputChange}
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+              <!-- Member Gender -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="memberGender">Member Gender</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="memberGender"
+                      placeholder="Select a Gender"
+                      options={genderOptions}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <!-- Date of Birth -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="dob"><span style='color:red;'>* </span>Date of Birth</label>
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="date"
+                      id="dob"
+                     onchange={handleInputChange}
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+              <!-- Address -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="address">Address</label>
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="text"
+                      id="address"
+                      onchange={handleInputChange}
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+              <!-- Telehealth -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="telehealth">Telehealth</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="telehealth"
+                      options={telepathOption}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <!-- Address Radius -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="radius">Address Radius</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="radius"
+                      placeholder="Select from here"
+                      options={addressRedusOption}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <!-- Email -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="email"><span style='color:red;'>* </span>Email</label>
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="email"
+                      id="email"
+    onchange={handleInputChange}
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+              <!-- Care Category -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="careCategory"><span style='color:red;'>* </span>Care Category</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="careCategory"
+                      options={careCatOptions}
+                   onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <!-- Phone Number -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="phone">Phone Number</label>
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="tel"
+                      id="phone"
+                      onchange={handleInputChange}
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+              <!-- Appointment Type -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="appointmentType"><span style='color:red;'>* </span>Appointment Type</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="appointmentType"
+                      options={appTypesOptions}
+                onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <!-- Time Zone -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="timeZone"><span style='color:red;'>* </span>Time Zone</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="timeZone"
+                      placeholder="Select Time Zone"
+                      options={timeZoneOption}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <!-- <div class="slds-col  slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                <lightning-input label="Patient Name" value={patientName} onchange={handleInputChange} data-id="patientName"></lightning-input>
+            </div>
+            <div class="slds-col slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                <lightning-combobox
+                    label="Gender"
+                    value={gender}
+                    options={genderOptions}
+                    onchange={handleInputChange}
+                    data-id="gender">
+                </lightning-combobox>
+            </div> -->
+
+
+
+        <!-- Conditional rendering for Unavailable fields -->
+   
+
+    </div>
+</div>
+<div class="slds-section">
+
+    <h3 class="slds-section__title custom_section" >
+        <button aria-controls="expando-unique-id" aria-expanded={isExpandedPreferences}
+            class="slds-button slds-section__title-action slds-grid  slds-justify_between"
+            onclick={togglePrefSection} type="button">
+            
+
+
+            <lightning-icon if:false={isExpandedPreferences} icon-name="utility:chevronright" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <lightning-icon if:true={isExpandedPreferences} icon-name="utility:chevrondown" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <span class="slds-truncate" title="Section Title">Patient Preferences</span>
+
+        </button>
+    </h3>
+    <div if:true={isExpandedPreferences}>
+        <div class="slds-card__body custum-class">
+            <div class="slds-grid slds-wrap slds-gutters">
+              <!-- Member Name -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="memberGender">Provider Gender</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="providerGender"
+                      placeholder="Select a provider Gender"
+                      options={genderOptions}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <!-- Member Gender -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="memberGender">Provider Language</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="providerLanguage"
+                      options={providerLanguageOption}
+                      onchange={handleInputChange}
+                      value={sectedProviderLanguage}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="memberGender">Provider</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                    placeholder="Select a provider"
+            
+                      id="provider"
+                      options={providerOptions}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              <!-- Date of Birth -->
+          
+              <!-- Address -->
+            
+              <!-- Telehealth -->
+      
+              <!-- Address Radius -->
+           
+              <!-- Email -->
+           
+              <!-- Care Category -->
+      
+              <!-- Phone Number -->
+          
+              <!-- Appointment Type -->
+         
+              <!-- Time Zone -->
+        
+            </div>
+            </div>
+            <!-- <div class="slds-col  slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                <lightning-input label="Patient Name" value={patientName} onchange={handleInputChange} data-id="patientName"></lightning-input>
+            </div>
+            <div class="slds-col slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                <lightning-combobox
+                    label="Gender"
+                    value={gender}
+                    options={genderOptions}
+                    onchange={handleInputChange}
+                    data-id="gender">
+                </lightning-combobox>
+            </div> -->
+
+
+
+        <!-- Conditional rendering for Unavailable fields -->
+   
+
+    </div>
+</div>
+
+<div class="slds-section">
+
+    <h3 class="slds-section__title custom_section" >
+        <button aria-controls="expando-unique-id" aria-expanded={isExpandedDT}
+            class="slds-button slds-section__title-action slds-grid  slds-justify_between"
+            onclick={toggleDTSection} type="button">
+            
+
+
+            <lightning-icon if:false={isExpandedDT} icon-name="utility:chevronright" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <lightning-icon if:true={isExpandedDT} icon-name="utility:chevrondown" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <span class="slds-truncate" title="Section Title">Date and Time</span>
+
+        </button>
+    </h3>
+    <div if:true={isExpandedDT}>
+      <div class="slds-card__body custum-class">
+        <div class="slds-grid slds-wrap slds-gutters">
+          <!-- Member Name -->
+          <div class="slds-col slds-size_3-of-5">
+            <div class="calender">
+              <div class="head-div">
+                  <h1>Choose Date</h1>
+                  
+                 </div>
+              <!-- <div class="header">
+                  <h1>Calender</h1>
+              </div> -->
+              <div class="body">
+                  <div class="month-row">
+                      <div>
+                          <lightning-icon icon-name="utility:chevronleft" alternative-text="Close" size="x-small" onclick ={handlePrev} class = "icon-color"></lightning-icon>
+                      </div>
+                     
+                      <h1 style="margin-right: 8px;  margin-left: 8px; font-weight: 600;font-size: 13px;">{selectedYear} {selectedMonth} </h1>
+                      <lightning-icon icon-name="utility:chevronright" alternative-text="Close" size="x-small" onclick ={handleNext} class = "icon-color"></lightning-icon>
+                  </div>
+                  <div class="weeks">
+                      <ul> 
+                          <template for:each={weeks} for:item="item">
+                              <li key={item}>{item}</li>
+                          </template>
+                      </ul>
+                  </div>
+                  <div class="days">
+                      <ul>
+                          <template for:each={days} for:item="item">
+                              <li  if:true={item.isToday}  key={item.day} data-day={item.day} style="cursor:pointer;    border-radius: 4px;" onclick={handleSelectedDate} class ="enableDates selected">{item.day} </li>
+                              
+                              <template if:false={item.isToday} key={item.day}>
+                                  <li  if:false={item.isPast} key={item.day} data-day={item.day} style="cursor:pointer;border: 1px solid #1e1c1c;    border-radius: 4px;" onclick={handleSelectedDate} class ="enableDates">{item.day}</li>
+                              </template>
+                              <li  if:true={item.isPast}  key={item.day} style="color: rgba(128, 128, 128, 0.671);cursor:not-allowed">{item.day} </li>
+                          </template>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+
+
+          </div>
+          <div class="slds-col slds-size_2-of-5">
+
+            <div class = "selected-date-col ">
+              <div class="head-div">
+                  <h1>Choose Time</h1>
+                  
+                 </div>
+        
+              <!-- <div class="selected-date">
+                  <h1>{clickedFullDate}</h1>
+              </div> -->
+      
+              <!-- <div class="list-container">
+                  <template if:true={timeOptions}>
+                      <template for:each={timeOptions} for:item="item">
+                          <div key={item.value} class="list-item">
+                              {item.label}
+                          </div>
+                      </template>
+                  </template>
+                  </div>
+                   -->
+                   <div class="combobox-container">
+                      <label class="combobox-label" for="duration-combobox">Duration:</label>
+                      <lightning-combobox
+                        id="duration-combobox"
+                        class="selected-date-duration"
+                        value={selectedTime}
+                        options={durationOptions}
+                        onchange={handleInputChange}
+                        data-id="duration"
+                        disabled="true"
+                      >
+                      </lightning-combobox>
+                    </div>
+                   
+      
+                  <div class="list-container">
+                      <template if:true={filteredTimeSlots}>
+                          <template for:each={filteredTimeSlots} for:item="item">
+      
+                              <div key={item.value} class="list-item" onclick={handleSelectedTime}>
+                                  {item.label}
+                              </div>
+                          </template>
+                      </template>
+                      <template if:true={scrollEnabled}>
+                        <div class="scroll-arrow-bottom" onclick={scrollToBottom}>
+                          ↓
+                      </div>
+                      <div class="scroll-arrow-top" onclick={scrollToTop}>
+                        ↑
+                    </div>
+                      </template>
+                 
+                  </div>
+              
+          </div>
+          </div>
+       
+       
+    
+    
+    
+     
+      <!-- Submit Button -->
+           
+            </div>
+        </div>
+<div class = 'bottom-div'>
+<div class="slds-grid slds-grid_align-end slds-m-top_small slds-p-bottom_medium">
+             
+<lightning-button variant="brand" label="Submit Appointment" onclick={handleSubmit}></lightning-button>
+
+</div>
+</div>
+   
+  
+            <!-- <div class="slds-col  slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                <lightning-input label="Patient Name" value={patientName} onchange={handleInputChange} data-id="patientName"></lightning-input>
+            </div>
+            <div class="slds-col slds-large-size_1-of-2 slds-small-size_1-of-1 slds-size_1-of-1">
+                <lightning-combobox
+                    label="Gender"
+                    value={gender}
+                    options={genderOptions}
+                    onchange={handleInputChange}
+                    data-id="gender">
+                </lightning-combobox>
+            </div> -->
+
+
+
+        <!-- Conditional rendering for Unavailable fields -->
+   
+
+    </div>
+</div>
+</template>
+<template if:true={returningMember}>
+  <div class="slds-section">
+
+    <h3 class="slds-section__title custom_section" >
+        <button aria-controls="expando-unique-id" aria-expanded={isExpandedReturningRequired}
+            class="slds-button slds-section__title-action slds-grid  slds-justify_between"
+            onclick={toggleReturningRequired} type="button">
+
+            <lightning-icon if:false={isExpandedReturningRequired} icon-name="utility:chevronright" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <lightning-icon if:true={isExpandedReturningRequired} icon-name="utility:chevrondown" size="x-small"
+                class="slds-m-right_small"></lightning-icon>
+            <span class="slds-truncate" title="Section Title">Required Information</span>
+
+        </button>
+    </h3>
+    <div if:true={isExpandedReturningRequired}>
+        <div class="slds-card__body custum-class">
+            <div class="slds-grid slds-wrap slds-gutters">
+              <!-- Member Name -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="memberName"><span style='color:red;'>* </span>Member Id</label>
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="text"
+                      id="memberId"
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+              <!-- Member Gender -->
+              <div class="slds-col slds-size_1-of-2">
+                <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="memberGender">Member Name</label>
+                  <div class="slds-form-element__control">
+                    <lightning-combobox
+                      id="memberNameReturning"
+                      placeholder="Select a Gender"
+                      options={genderOptions}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+              <div class = 'bottom-div' style="margin-bottom: 0px;">
+                <div class="slds-grid slds-grid_align-end slds-m-top_small slds-p-bottom_medium">
+                             
+                <lightning-button variant="brand" label="Log In" onclick={handleSubmit}></lightning-button>
+                
+                </div>
+                </div>
+</template>
+
+ 
+
+ 
+</lightning-card>
+</div>
+
+</template>
