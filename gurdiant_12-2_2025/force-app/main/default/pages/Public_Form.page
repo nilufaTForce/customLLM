@@ -1,9 +1,0 @@
-<apex:page >
-    <script src="/lightning/lightning.out.js"></script>
-    <div id="lightning"></div>
-    <script>
-        $Lightning.use("c:Test3", function() {
-            $Lightning.createComponent("c:publicAppointmentUrl", {}, "lightning");
-        });
-    </script>
-</apex:page>
